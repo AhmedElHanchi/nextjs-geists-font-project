@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IrrigationTrackingSystem" default="default" basedir=".">
+    <description>Builds, tests, and runs the project IrrigationTrackingSystem.</description>
+    
+    <import file="nbproject/build-impl.xml"/>
+    
+    <!-- Cibles personnalisées -->
+    <target name="run" depends="jar">
+        <java jar="${dist.jar}" fork="true"/>
+    </target>
+    
+    <target name="clean-run" depends="clean,run"/>
+    
+    <target name="init-db" description="Initialise la base de données">
+        <java classname="com.irrigation.utils.DatabaseConnection" fork="true">
+            <classpath>
+                <pathelement location="${build.classes.dir}"/>
+                <pathelement location="lib/mysql-connector-java.jar"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="create-admin" description="Crée un utilisateur admin par défaut">
+        <java classname="com.irrigation.controllers.AuthController" fork="true">
+            <classpath>
+                <pathelement location="${build.classes.dir}"/>
+                <pathelement location="lib/mysql-connector-java.jar"/>
+            </classpath>
+        </java>
+    </target>
+</project>
